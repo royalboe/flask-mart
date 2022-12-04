@@ -1,7 +1,9 @@
-from app import app
-
+from market import app
+from flask import render_template
+from market.models import Item
 
 @app.route('/')
+@app.route('/home')
 def index():
     return render_template('dashboard/home.html')
 
