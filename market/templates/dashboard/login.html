@@ -1,28 +1,30 @@
 {%extends 'partials/base.html'%}
-{%block title%}Register Page{%endblock%}
+{%block title%}Login Page{%endblock%}
 {%block content%}
 <body class="text-center">
         <div class="container offset-md-3 col-md-6">
             <form method="POST" class="form-register" style="color:white;">
                 {{form.hidden_tag()}}
                 <h1 class="h3 mb-3 font-weight-normal">
-                    Please Create Your Account
+                    Please Sign In To Your Account
                 </h1>
                 <br />
                 {{form.username.label()}}
                 {{form.username(class="form-control", placeholder="Username")}}
-                {{form.email_address.label()}}
-                {{form.email_address(class="form-control", placeholder="Email Address")}}
+
                 {{form.password.label()}}
                 {{form.password(class="form-control", placeholder="Password")}}
-                {{form.confirm_password.label()}}
-                {{form.confirm_password(class="form-control", placeholder="Confirm Password")}}
+
                 <br />
 
                 <div class="checkbox mb-3">
-                    <h6>Have an acccount? Login</h6>
-                    <a class="btn btn-sm btn-secondary" href="{{url_for('login_page')}}">Login</a>
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                    <h6>Do not have an acccount?</h6>
+                    <a class="btn btn-sm btn-secondary" href="{{url_for('register_page')}}">Register</a>
                 </div>
+
 
                 {{form.submit(class="btn btn-lg col-12 btn-primary")}}
             </form>

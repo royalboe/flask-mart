@@ -1,5 +1,5 @@
 from market import db
-
+from market import bcrypt
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +11,15 @@ class User(db.Model):
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email_address}', '{self.budget}')"
+
+    @property
+    def password(self):
+        return self.password
+
+    @password.setter
+    def password(self, plaintext):
+        self.password_hash = bcrypt.generate_password_hash(plaintext).decode('utf-8')
+
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)

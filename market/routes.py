@@ -2,6 +2,7 @@ from market import app
 from flask import render_template, redirect, url_for, flash, request, get_flashed_messages
 from market.models import Item, User
 from market.forms import RegisterForm
+from market.forms import LoginForm
 from market import db
 
 
@@ -28,7 +29,9 @@ def market_page():
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
-        user_to_create = User(username=form.username.data, email_address=form.email_address.data,password_hash=form.password.data)
+        user_to_create = User(username=form.username.data,
+         email_address=form.email_address.data, 
+         password=form.password.data)
         db.session.add(user_to_create)
         db.session.commit()
         flash(f'Account created successfully! You are now able to log in', category='success')
@@ -39,3 +42,9 @@ def register_page():
         
 
     return render_template('dashboard/register.html', **locals())
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_page():
+    form = LoginForm()
+    return render_template('dashboard/login.html', **locals())  
