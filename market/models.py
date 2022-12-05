@@ -1,7 +1,14 @@
 from market import db
 from market import bcrypt
+from market import login_manager
+from flask_login import UserMixin
 
-class User(db.Model):
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True, nullable=False)
     email_address = db.Column(db.String(50), unique=True, nullable=False)
@@ -19,7 +26,16 @@ class User(db.Model):
     @password.setter
     def password(self, plaintext):
         self.password_hash = bcrypt.generate_password_hash(plaintext).decode('utf-8')
-
+    
+    @property
+    def prettier_budget(self):
+        if len(str(self.budget)) >= 4:
+            return f"{str(self.budget)[:-3]},{str(self.budget)[-3:]}"
+        else:
+            return str(self.budget)
+    
+    def check_password_correction(self, attempted_password):
+        return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
