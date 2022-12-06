@@ -57,3 +57,10 @@ def login_page():
         else:
             flash('Username and password are not match! Please try again', category='danger')
     return render_template('dashboard/login.html', **locals())  
+
+
+@app.route('/logout')
+def logout_page():
+    logout_user()
+    flash('You have been logged out!', category='info')
+    return redirect(url_for('index'))
