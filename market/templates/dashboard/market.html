@@ -22,6 +22,8 @@
                 </thead>
                 <tbody>
                     {% for item in items %}
+                    {% include 'includes/items_modals.html' %}
+
                     <!-- Your rows inside the table HERE: -->
                         <tr>
                             <td class="text-center">{{item.id}}</td>
@@ -29,8 +31,8 @@
                             <td class="text-center">{{item.barcode}}</td>
                             <td class="text-center">${{item.price}}</td>
                             <td class="text-center">
-                                <button class="btn btn-outline btn-info">More Info</button>
-                                <button class="btn btn-outline btn-success">Purchase this item</button>
+                                <button class="btn btn-outline btn-info" data-bs-toggle="modal" data-bs-target="#Modal-MoreInfo-{{item.id}}">More Info</button>
+                                <button class="btn btn-outline btn-success" data-bs-toggle="modal" data-bs-target="#Modal-Purchase-{{item.id}}">Purchase this item</button>
                             </td>
                         </tr>
                     {% endfor %}
