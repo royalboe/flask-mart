@@ -44,7 +44,22 @@
             <h3>Owned Items</h3>
             <p>Sell Items Your Own</p>
         <br>
+            <div class="row">
+                {% for item in owned_items %}
+                {% include 'includes/owned_items_modals.html' %}
+                    <div class="col-md-6">
+                        <div style="margin-bottom: 5px;" class="card text-center bg-dark">
+                            <div class="card-body">
+                                <h5 class="card-title"> {{item.name}} </h5>
+                                <button class="btn btn-outline btn-danger" style="margin-bottom: 5px;" data-bs-toggle="modal" data-bs-target="#Modal-Selling-{{item.id}}">
+                                    Sell this item
+                                </button>
+                                <p class="card-text"><strong> This item cost ${{item.price}} </strong></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    
 </div>
 {% endblock %}
